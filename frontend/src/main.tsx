@@ -1,0 +1,10 @@
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+import ThemeToggle from './components/ThemeToggle';
+import { AuthProvider } from './auth/AuthProvider';
+import './styles.css';
+import './glass.css';
+import { LanguageProvider } from './i18n';
+ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><BrowserRouter><LanguageProvider><AuthProvider><ThemeToggle/><App/></AuthProvider></LanguageProvider></BrowserRouter></React.StrictMode>);

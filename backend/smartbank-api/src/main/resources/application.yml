@@ -1,0 +1,63 @@
+spring:
+  application:
+    name: smartbank-api
+  config:
+    import:
+      - optional:file:./backend/smartbank-api/.env[.properties]
+      - optional:file:./.env[.properties]
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/nutricare?createDatabaseIfNotExist=true&serverTimezone=Asia/Colombo}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    show-sql: false
+  sql:
+    init:
+      mode: never
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    validate-on-migrate: false
+
+server:
+  port: ${PORT:8081}
+  error:
+    include-message: never
+    include-stacktrace: never
+
+jwt:
+  secret: ${JWT_SECRET:fFR4lwMXpTD38wRpU4hjnZHYSmWiTq+Scy1wkNL8IV/p1Edl1U1Y98U3ecjnhurmg3sg54CNoJ+P7B4KcIlC5g==}
+
+bank:
+  security:
+    jwt-hours: 24
+    idle-minutes: 10
+  cors:
+    origins: ${CORS_ORIGINS:http://localhost:5173}
+  otp:
+    simulation-enabled: ${BANK_OTP_SIMULATION_ENABLED:false}
+    ttl-seconds: 180
+    max-attempts: 5
+    resend-seconds: 30
+  fixed-deposit:
+    minimum-amount: ${FD_MINIMUM_AMOUNT:1000.00}
+    rates:
+      3: ${FD_RATE_3:5.00}
+      6: ${FD_RATE_6:6.00}
+      12: ${FD_RATE_12:7.00}
+  demo:
+    admin-enabled: ${BANK_DEMO_ADMIN_ENABLED:false}
+    staff-enabled: ${BANK_DEMO_STAFF_ENABLED:false}
+
+exchange-rate:
+  api-key: ${EXCHANGE_RATE_API_KEY:}
+
+mailjet:
+  api-key: ${MAILJET_API_KEY:3e8dca622958dead6038bdb663ddf374}
+  secret-key: ${MAILJET_SECRET_KEY:4fea9c5c1f27bcb4854bb41616675702}
+  from-email: ${MAILJET_FROM_EMAIL:wijerathna.dev.2004@gmail.com}
+  from-name: ${MAILJET_FROM_NAME:Serendib Smart Bank}

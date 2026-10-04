@@ -1,0 +1,22 @@
+services:
+  nutricare_mysql:
+    image: mysql:8.4
+    container_name: nutricare_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-root}
+      MYSQL_DATABASE: ${DB_NAME:-nutricare}
+      TZ: Asia/Colombo
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: >
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --default-time-zone=+05:30
+
+volumes:
+  mysql_data:
+    name: nutricare_mysql_data
